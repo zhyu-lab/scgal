@@ -17,7 +17,7 @@ cd scgal
 ```
 
 ## Create conda environment (optional)
-Create a new environment named "scGAL":
+Create a new environment named "scgal":
 ```bash
 conda create --name scgal python=3.8.13
 ```
@@ -68,8 +68,8 @@ Parameter | Description | Possible values
 --lr | learning rate | Ex: lr=0.0001  default:0.0008
 --Kmax | maximum number of clusters to consider | Ex: max_k=20  default:30
 --latent_dim | latent dimension | Ex: latent_dim=4  default:3
---lambda_A | convolutional kernel size | Ex: lambda_A=10  default:5
---pool_size | convolutional kernel size | Ex: pool_size=32  default:64
+--lambda_A | a weight factor to balance reconstruction loss and adversarial loss | Ex: lambda_A=10  default:5
+--pool_size | the size of rna buffer that stores previously generated rnas | Ex: pool_size=32  default:64
 --seed | random seed | Ex: seed=0  default:6
 
 
