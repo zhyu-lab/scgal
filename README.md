@@ -46,16 +46,24 @@ python run_scgal_sa501.py
 ```
 
 ## Input Files
-* `--dirA` Should be a file containing the copy number matrix. Rows=cells, Cols=Genes.
-* `--dirB` Should be a file containing the expression matrix. Rows=cells, Cols=Genes.
-* `--label` Should be a file containing the real label of cells. 
+
+The input data should contain DNA copy number data and gene expression data for the same cell line. Rows=cells, Cols=Genes. Authentic labels of DNA cells, if present, should also be entered into the method.
 
 We use the true labels of cells to calculate ARI and V-measure to assess the quality of clustering. If the data set does not have the true labels of the cells, the label file may not be entered. The silhouette coefficients are used to assess the quality of clustering.
 
+## Output Files
+
+### Low-dimensional representations
+
+The low-dimensional representations are written to a file with name "latent.txt".
+
+### Cell labels
+
+The cell-to-cluster assignments are written to a file with name "labels.txt".
 ## Arguments
 
-* `--dirA <filename>` Replace \<filename\> with the file containing the  copy number matrix.
-* `--dirB <filename>` Replace \<filename\> with the file containing the expression matrix.
+* `--dna <filename>` Replace \<filename\> with the file containing the  copy number matrix.
+* `--rna <filename>` Replace \<filename\> with the file containing the expression matrix.
 * `--label <filename>` Replace \<filename\> with the file containing the real label of cells.
 
 
