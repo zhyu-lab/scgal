@@ -52,6 +52,7 @@ The input data should contain DNA copy number data and gene expression data for 
 We use the true labels of cells to calculate ARI and V-measure to assess the quality of clustering. If the data set does not have the true labels of the cells, the label file may not be entered. The silhouette coefficients are used to assess the quality of clustering.
 
 ## Output Files
+The output directory is provided by users.
 
 ### Low-dimensional representations
 
