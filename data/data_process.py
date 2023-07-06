@@ -6,13 +6,13 @@ import copy
 class data_set:
     def __init__(self,opt):
         self.opt = opt
-        self.A_data,self.A_dim= load_dataDNA(opt.dir_A)  # load data from 'path'
-        self.B_data = load_dataRNA(opt.dir_B,self.A_dim) # load data from 'path'
+        self.A_data,self.A_dim= load_dataDNA(opt.dna)  # load data from 'path'
+        self.B_data = load_dataRNA(opt.rna,self.A_dim) # load data from 'path'
     def __getitem__(self, item):
         A = self.A_data
         B = self.B_data
-        A_path = self.dir_A
-        B_path = self.dir_B
+        A_path = self.dna
+        B_path = self.rna
         return {'A': A, 'B': B, 'A_paths': A_path, 'B_paths': B_path}
 
 def xs_gen(cell_list, batch_size, random1):
