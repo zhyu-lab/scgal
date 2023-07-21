@@ -38,7 +38,7 @@ def main(opt):
         # torch.backends.cudnn.benchmark = False
     setup_seed(opt.seed)
 
-    model,modelD = Create_Model(opt) # Create Model
+    model, modelD = Create_Model(opt) # Create Model
     model = model.to(device)
     modelD = modelD.to(device)
 
@@ -67,20 +67,20 @@ def main(opt):
                 epochs.append(vis)
             real_A = x['A'].to(device)
             real_B = x['B'].to(device)
-            h_enc,rec,fake= model(real_A)
+            h_enc, rec, fake = model(real_A)
 
             set_requires_grad(modelD, False)  # modelD requires no gradients when optimizing model
             optimizer_ae.zero_grad()  # set model's gradients to zero
             lambda_A = opt.lambda_A
 
-            loss_decoder1 = criterionGAN(modelD(fake), True)
-            loss_decoder2 = ceiteriondAE(rec,real_A)* lambda_A
+            loss_gan = criterionGAN(modelD(fake), True)
+            loss_rec = ceiteriondAE(rec,real_A) * lambda_A
 
             # combined loss and calculate gradients
-            loss_cycle_ae = loss_decoder1 + loss_decoder2
-            loss_cycle_ae.backward()   # calculate gradients for model
-            optimizer_ae.step()  # updata model's weights
-            # D_A and D_B
+            loss_model = loss_gan + loss_rec
+            loss_model.backward()   # calculate gradients for model
+            optimizer_ae.step()  # update model's weights
+
             set_requires_grad(modelD, True)
             optimizer_D.zero_grad()  #  set modelD's gradients to zero
             # Real
@@ -93,13 +93,13 @@ def main(opt):
             # Combined loss and calculate gradients
             loss_D = (loss_D_real + loss_D_fake) * 0.5
             loss_D.backward()   # calculate gradients for modelD
-            optimizer_D.step()  # updata modelD's weights
+            optimizer_D.step()  # update modelD's weights
             if epoch_iter <= data_A_size:
-                train_loss_AE.append(loss_decoder2.data.cpu().numpy())
-                train_loss_GAN.append(loss_decoder1.data.cpu().numpy())
+                train_loss_AE.append(loss_rec.data.cpu().numpy())
+                train_loss_GAN.append(loss_gan.data.cpu().numpy())
                 train_loss_D.append(loss_D.data.cpu().numpy())
 
-    # get latent representation of single cells after VAE training is completed
+    # get latent representation of single cells after scgal training is completed
     a = []
     data_eval = copy.deepcopy(data_bk)
     model.eval()
@@ -126,7 +126,7 @@ def main(opt):
         kmax = np.max([1, features.shape[0] // 10])
     else:
         kmax = np.min([opt.Kmax, features.shape[0] // 10])
-    print("GAN_AE:")
+    print("scgal:")
     label_p, K = GMM(features, kmax).cluster()
     label_p_array = np.array(label_p)
     label_p_array = label_p_array.reshape(1, -1)
