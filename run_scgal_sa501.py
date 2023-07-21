@@ -3,7 +3,7 @@ from scgal import main
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="scgal")
-    parser.add_argument('--epochs', type=int, default=180, help='number of epoches to train the scgal.')
+    parser.add_argument('--epochs', type=int, default=180, help=' number of epoches to train the scgal.')
     parser.add_argument('--batch_size', type=int, default=64, help='batch size.')
     parser.add_argument('--lr', type=float, default=0.0008, help='learning rate.')
     parser.add_argument('--Kmax', type=int, default=30, help='the maximum number of clusters to consider.')
