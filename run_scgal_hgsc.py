@@ -2,7 +2,7 @@ import argparse
 from scgal import main
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="GAN_AE")
+    parser = argparse.ArgumentParser(description="scgal")
     parser.add_argument('--epochs', type=int, default=120, help='number of epoches to train the GAN_AE.')
     parser.add_argument('--batch_size', type=int, default=64, help='batch size.')
     parser.add_argument('--lr', type=float, default=0.007, help='learning rate.')
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     parser.add_argument('--latent_dim', type=int, default=3, help='the latent dimension.')
     parser.add_argument('--A-col', default='1', help='scDNA-seq data dimensions')
     parser.add_argument('--B-col', default='1', help='scRNA-seq data dimensions')
-    parser.add_argument('--lambda_A', type=float, default=5, help='weight for cycle loss (A -> B -> A)')
+    parser.add_argument('--lambda_A', type=float, default=5, help='a weight factor to balance reconstruction loss and adversarial loss')
     parser.add_argument('--gan_mode', type=str, default='vanilla',help='vanilla GAN loss is used in the original GAN paper.')
     parser.add_argument('--dna', type=str, default='./data/HGSC/hgsc_dna.txt')
     parser.add_argument('--rna', type=str, default='./data/HGSC/hgsc_rna.txt')
